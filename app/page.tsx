@@ -1120,18 +1120,6 @@ function TeacherExperience() {
                     </div>
                   </div>
                 </div>
-
-                {/* Algorithm Transparency */}
-                <div className="flex items-center justify-between p-3 bg-indigo-50 rounded-lg border border-indigo-200">
-                  <div className="flex items-center space-x-2">
-                    <Brain className="w-5 h-5 text-indigo-600" />
-                    <span className="font-medium text-indigo-900">AI Model Transparency</span>
-                  </div>
-                  <div className="text-right text-sm text-indigo-700">
-                    <div>Model Version: v2.3.1 | Last Updated: 2 hours ago</div>
-                    <div>Training Data: 2.4M student interactions | Accuracy: 94.2%</div>
-                  </div>
-                </div>
               </div>
             </CardContent>
           </Card>
