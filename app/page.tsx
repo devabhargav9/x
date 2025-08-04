@@ -99,8 +99,8 @@ export default function AdaptiveLearningPrototype() {
                 <BrainCircuit className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">AdaptiveLearn AI</h1>
-                <p className="text-xs text-gray-500">Next-Generation Learning Platform</p>
+                <h1 className="text-xl font-bold text-gray-900">X'Presso ALS</h1>
+                <p className="text-xs text-gray-500">Neuro-Adaptive Learning Platform</p>
               </div>
             </div>
 

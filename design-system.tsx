@@ -7,7 +7,7 @@ export default function DesignSystemExport() {
   return (
     <div className="max-w-6xl mx-auto p-8 space-y-12">
       <div className="text-center">
-        <h1 className="text-3xl font-bold mb-4">AdaptiveLearn AI - Design System</h1>
+        <h1 className="text-3xl font-bold mb-4">X'Presso ALS - Design System</h1>
         <p className="text-gray-600">Complete design specifications for Figma recreation</p>
       </div>
 
