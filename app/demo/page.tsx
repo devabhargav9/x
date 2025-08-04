@@ -69,8 +69,8 @@ export default function DemoPage() {
                 <BrainCircuit className="w-7 h-7 text-white" />
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-gray-900">X'Presso ALS</h1>
-                <p className="text-blue-600">Neuro-Adaptive Learning Platform</p>
+                <h1 className="text-3xl font-bold text-gray-900">AdaptiveLearn AI</h1>
+                <p className="text-blue-600">Next-Generation Learning Platform</p>
               </div>
             </div>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">

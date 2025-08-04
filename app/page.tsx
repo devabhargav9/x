@@ -99,8 +99,8 @@ export default function AdaptiveLearningPrototype() {
                 <BrainCircuit className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">X'Presso ALS</h1>
-                <p className="text-xs text-gray-500">Neuro-Adaptive Learning Platform</p>
+                <h1 className="text-xl font-bold text-gray-900">AdaptiveLearn AI</h1>
+                <p className="text-xs text-gray-500">Next-Generation Learning Platform</p>
               </div>
             </div>
 
@@ -882,6 +882,201 @@ function TeacherExperience() {
                         Start Advanced Lesson
                       </Button>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* AI Methodology & Data Sources */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <BarChart3 className="w-5 h-5 text-indigo-600" />
+                <span>AI Analysis Methodology</span>
+              </CardTitle>
+              <CardDescription>How we arrive at intelligent teaching recommendations</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-6">
+                {/* Breakthrough Detection Methodology */}
+                <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+                  <div className="flex items-start space-x-3 mb-3">
+                    <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
+                      <TrendingUp className="w-4 h-4 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-green-900 mb-2">Breakthrough Detection Analysis</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                        <div>
+                          <div className="font-medium text-green-800 mb-1">Data Sources</div>
+                          <ul className="text-green-700 space-y-1">
+                            <li>• Problem-solving speed: +47% avg</li>
+                            <li>• Accuracy rates: 92%+ sustained</li>
+                            <li>• Engagement metrics: 89%+ focus</li>
+                            <li>• Concept mastery: 15 students at 95%+</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <div className="font-medium text-green-800 mb-1">AI Algorithm</div>
+                          <ul className="text-green-700 space-y-1">
+                            <li>• Pattern recognition on 72hr data</li>
+                            <li>• Cognitive load analysis</li>
+                            <li>• Learning velocity tracking</li>
+                            <li>• Prerequisite mastery validation</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <div className="font-medium text-green-800 mb-1">Confidence Metrics</div>
+                          <ul className="text-green-700 space-y-1">
+                            <li>• Statistical significance: 94%</li>
+                            <li>• Sample size: 15/30 students</li>
+                            <li>• Trend consistency: 3+ days</li>
+                            <li>• Cross-validation score: 0.89</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Support Needed Methodology */}
+                <div className="p-4 bg-orange-50 rounded-lg border border-orange-200">
+                  <div className="flex items-start space-x-3 mb-3">
+                    <div className="w-8 h-8 bg-orange-600 rounded-full flex items-center justify-center">
+                      <AlertCircle className="w-4 h-4 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-orange-900 mb-2">Support Detection Analysis</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                        <div>
+                          <div className="font-medium text-orange-800 mb-1">Struggle Indicators</div>
+                          <ul className="text-orange-700 space-y-1">
+                            <li>• Emma: 3+ failed attempts on abstract concepts</li>
+                            <li>• David: 65% accuracy drop in 2 days</li>
+                            <li>• Sarah: Engagement below 45% threshold</li>
+                            <li>• Time-on-task: 40% above class average</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <div className="font-medium text-orange-800 mb-1">Learning Style Analysis</div>
+                          <ul className="text-orange-700 space-y-1">
+                            <li>• Visual preference: 75% (Emma)</li>
+                            <li>• Current content: 80% text-based</li>
+                            <li>• Mismatch correlation: 0.73</li>
+                            <li>• Historical visual success: +34%</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <div className="font-medium text-orange-800 mb-1">Intervention Timing</div>
+                          <ul className="text-orange-700 space-y-1">
+                            <li>• Early detection: Day 2 of struggle</li>
+                            <li>• Optimal window: Next 24-48 hours</li>
+                            <li>• Success probability: 78%</li>
+                            <li>• Without intervention: 23% recovery</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Optimal Moment Methodology */}
+                <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                  <div className="flex items-start space-x-3 mb-3">
+                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                      <Lightbulb className="w-4 h-4 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-blue-900 mb-2">Optimal Teaching Moment Analysis</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                        <div>
+                          <div className="font-medium text-blue-800 mb-1">Attention Metrics</div>
+                          <ul className="text-blue-700 space-y-1">
+                            <li>• Class attention: 94% (peak threshold: 90%)</li>
+                            <li>• Individual focus: 28/30 students &gt;85%</li>
+                            <li>• Distraction events: 0 in last 8 minutes</li>
+                            <li>• Cognitive load: Optimal (3.2/5 scale)</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <div className="font-medium text-blue-800 mb-1">Readiness Indicators</div>
+                          <ul className="text-blue-700 space-y-1">
+                            <li>• Prerequisite mastery: 89% class average</li>
+                            <li>• Recent success rate: 91% on practice</li>
+                            <li>• Question frequency: +23% (curiosity spike)</li>
+                            <li>• Engagement trajectory: Ascending 12 min</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <div className="font-medium text-blue-800 mb-1">Timing Optimization</div>
+                          <ul className="text-blue-700 space-y-1">
+                            <li>• Window duration: 8-12 minutes remaining</li>
+                            <li>• Historical success: 87% when &gt;90% attention</li>
+                            <li>• Complexity budget: 2.1/5 available</li>
+                            <li>• Retention prediction: 94% for new concepts</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Real-time Data Sources */}
+                <div className="p-4 bg-gray-50 rounded-lg border">
+                  <h4 className="font-semibold text-gray-900 mb-3 flex items-center space-x-2">
+                    <Activity className="w-4 h-4 text-gray-600" />
+                    <span>Real-time Data Sources</span>
+                  </h4>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                    <div>
+                      <div className="font-medium text-gray-800">Behavioral Data</div>
+                      <ul className="text-gray-600 space-y-1">
+                        <li>• Mouse/touch patterns</li>
+                        <li>• Response timing</li>
+                        <li>• Session duration</li>
+                        <li>• Navigation patterns</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <div className="font-medium text-gray-800">Performance Data</div>
+                      <ul className="text-gray-600 space-y-1">
+                        <li>• Answer accuracy</li>
+                        <li>• Problem-solving steps</li>
+                        <li>• Error patterns</li>
+                        <li>• Improvement velocity</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <div className="font-medium text-gray-800">Engagement Data</div>
+                      <ul className="text-gray-600 space-y-1">
+                        <li>• Active time on task</li>
+                        <li>• Question asking frequency</li>
+                        <li>• Help-seeking behavior</li>
+                        <li>• Voluntary practice</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <div className="font-medium text-gray-800">Cognitive Data</div>
+                      <ul className="text-gray-600 space-y-1">
+                        <li>• Working memory load</li>
+                        <li>• Attention span patterns</li>
+                        <li>• Processing speed</li>
+                        <li>• Metacognitive awareness</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Algorithm Transparency */}
+                <div className="flex items-center justify-between p-3 bg-indigo-50 rounded-lg border border-indigo-200">
+                  <div className="flex items-center space-x-2">
+                    <Brain className="w-5 h-5 text-indigo-600" />
+                    <span className="font-medium text-indigo-900">AI Model Transparency</span>
+                  </div>
+                  <div className="text-right text-sm text-indigo-700">
+                    <div>Model Version: v2.3.1 | Last Updated: 2 hours ago</div>
+                    <div>Training Data: 2.4M student interactions | Accuracy: 94.2%</div>
                   </div>
                 </div>
               </div>
