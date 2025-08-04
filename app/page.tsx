@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { AIChatbot } from "@/components/ai-chatbot"
 import {
   Brain,
   Target,
@@ -35,6 +36,7 @@ import {
   GraduationCap,
   MousePointer,
   HeadphonesIcon,
+  MessageCircle,
 } from "lucide-react"
 
 export default function AdaptiveLearningPrototype() {
@@ -44,6 +46,8 @@ export default function AdaptiveLearningPrototype() {
   const [isLearning, setIsLearning] = useState(false)
   const [learningProgress, setLearningProgress] = useState(0)
   const [adaptationCount, setAdaptationCount] = useState(0)
+  const [showChatbot, setShowChatbot] = useState(false)
+  const [chatbotMinimized, setChatbotMinimized] = useState(false)
 
   // Simulate real-time learning
   useEffect(() => {
@@ -68,10 +72,23 @@ export default function AdaptiveLearningPrototype() {
     return () => clearInterval(timer)
   }, [])
 
+  // Auto-show chatbot for students after 3 seconds
+  useEffect(() => {
+    if (userRole === "student") {
+      const timer = setTimeout(() => {
+        setShowChatbot(true)
+        setChatbotMinimized(true)
+      }, 3000)
+      return () => clearTimeout(timer)
+    } else {
+      setShowChatbot(false)
+    }
+  }, [userRole])
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-xl border-b border-gray-200 sticky top-0 z-50">
+      <header className="bg-white/80 backdrop-blur-xl border-b border-gray-200 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-4">
@@ -106,6 +123,22 @@ export default function AdaptiveLearningPrototype() {
                   Teacher
                 </button>
               </div>
+
+              {/* AI Chatbot Toggle for Students */}
+              {userRole === "student" && (
+                <Button
+                  onClick={() => {
+                    setShowChatbot(true)
+                    setChatbotMinimized(false)
+                  }}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                  size="sm"
+                >
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  AI Tutor
+                </Button>
+              )}
+
               <Avatar className="w-8 h-8">
                 <AvatarFallback className={userRole === "student" ? "bg-blue-500" : "bg-purple-500"}>
                   {userRole === "student" ? "JS" : "MT"}
@@ -128,6 +161,24 @@ export default function AdaptiveLearningPrototype() {
           <TeacherExperience />
         )}
       </main>
+
+      {/* AI Chatbot for Students */}
+      {userRole === "student" && showChatbot && (
+        <AIChatbot
+          studentData={{
+            name: "Jordan",
+            currentTopic: "Quadratic Functions",
+            performance: 87,
+            learningStyle: { visual: 65, auditory: 25, kinesthetic: 10 },
+            cognitiveState: { focus: 85, engagement: 92, comprehension: 78 },
+            strugglingAreas: ["Abstract concepts", "Word problems"],
+            strengths: ["Pattern recognition", "Visual analysis"],
+          }}
+          onClose={() => setShowChatbot(false)}
+          isMinimized={chatbotMinimized}
+          onToggleMinimize={() => setChatbotMinimized(!chatbotMinimized)}
+        />
+      )}
     </div>
   )
 }
@@ -169,6 +220,10 @@ function StudentExperience({
               <div className="flex items-center space-x-1">
                 <Target className="w-4 h-4" />
                 <span>87% goal completion</span>
+              </div>
+              <div className="flex items-center space-x-1">
+                <MessageCircle className="w-4 h-4" />
+                <span>AI Tutor available</span>
               </div>
             </div>
           </div>
@@ -470,6 +525,15 @@ function StudentExperience({
                 </div>
                 <p className="text-xs text-purple-800">
                   Ready for "Completing the Square" based on your mastery level.
+                </p>
+              </div>
+              <div className="p-3 bg-orange-50 rounded-lg">
+                <div className="flex items-center space-x-2 mb-1">
+                  <MessageCircle className="w-4 h-4 text-orange-600" />
+                  <span className="text-sm font-medium text-orange-900">Ask AI Tutor</span>
+                </div>
+                <p className="text-xs text-orange-800">
+                  Your AI tutor can provide personalized explanations and practice problems.
                 </p>
               </div>
             </CardContent>
