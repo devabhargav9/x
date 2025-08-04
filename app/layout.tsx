@@ -6,7 +6,7 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "X'Presso ALS - Neuro-Adaptive Learning Platform",
+  title: "X'Presso ALS - Next-Generation Adaptive Learning",
   description: "AI-powered cognitive analysis and personalized learning optimization platform",
     generator: 'v0.dev'
 }

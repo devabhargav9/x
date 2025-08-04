@@ -909,31 +909,84 @@ function TeacherExperience() {
                       <h4 className="font-semibold text-green-900 mb-2">Breakthrough Detection Analysis</h4>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                         <div>
-                          <div className="font-medium text-green-800 mb-1">Data Sources</div>
+                          <div className="font-medium text-green-800 mb-1">Mastery Indicators</div>
                           <ul className="text-green-700 space-y-1">
-                            <li>• Problem-solving speed: +47% avg</li>
-                            <li>• Accuracy rates: 92%+ sustained</li>
-                            <li>• Engagement metrics: 89%+ focus</li>
-                            <li>• Concept mastery: 15 students at 95%+</li>
+                            <li>• Quadratic vertex form: 15 students at 95%+ mastery</li>
+                            <li>• Factoring quadratics: 98% accuracy sustained</li>
+                            <li>• Completing the square: 94% success rate</li>
+                            <li>• Graphing transformations: Mastered in 2.3 days (vs 4.1 avg)</li>
                           </ul>
                         </div>
                         <div>
-                          <div className="font-medium text-green-800 mb-1">AI Algorithm</div>
+                          <div className="font-medium text-green-800 mb-1">Readiness Signals</div>
                           <ul className="text-green-700 space-y-1">
-                            <li>• Pattern recognition on 72hr data</li>
-                            <li>• Cognitive load analysis</li>
-                            <li>• Learning velocity tracking</li>
-                            <li>• Prerequisite mastery validation</li>
+                            <li>• Function composition: 89% understanding</li>
+                            <li>• Rate of change concepts: Intuitive grasp shown</li>
+                            <li>• Algebraic manipulation: Advanced fluency</li>
+                            <li>• Abstract thinking: 47% above grade level</li>
                           </ul>
                         </div>
                         <div>
-                          <div className="font-medium text-green-800 mb-1">Confidence Metrics</div>
+                          <div className="font-medium text-green-800 mb-1">Calculus Prerequisites</div>
                           <ul className="text-green-700 space-y-1">
-                            <li>• Statistical significance: 94%</li>
-                            <li>• Sample size: 15/30 students</li>
-                            <li>• Trend consistency: 3+ days</li>
-                            <li>• Cross-validation score: 0.89</li>
+                            <li>• ✅ Quadratic functions (95% mastery)</li>
+                            <li>• ✅ Function transformations (94% mastery)</li>
+                            <li>• ✅ Rate concepts (intuitive understanding)</li>
+                            <li>• 🎯 Ready for: Limits & basic derivatives</li>
                           </ul>
+                        </div>
+                      </div>
+
+                      {/* Educational Reasoning */}
+                      <div className="mt-4 p-3 bg-green-100 rounded-lg">
+                        <div className="font-medium text-green-800 mb-2 flex items-center space-x-2">
+                          <BookOpen className="w-4 h-4" />
+                          <span>Educational Reasoning: Why Calculus Now?</span>
+                        </div>
+                        <div className="text-green-700 text-sm space-y-2">
+                          <div>
+                            <strong>1. Prerequisite Mastery:</strong> Students have mastered quadratic functions (95%+),
+                            which are essential for understanding polynomial derivatives and optimization problems.
+                          </div>
+                          <div>
+                            <strong>2. Conceptual Readiness:</strong> Their intuitive grasp of "rate of change" from
+                            quadratic vertex analysis indicates readiness for formal derivative concepts.
+                          </div>
+                          <div>
+                            <strong>3. Cognitive Development:</strong> 47% above-grade-level abstract thinking suggests
+                            they can handle the conceptual leap from algebra to calculus.
+                          </div>
+                          <div>
+                            <strong>4. Natural Progression:</strong> From quadratic optimization (finding vertex) →
+                            calculus optimization (finding maxima/minima using derivatives).
+                          </div>
+                          <div>
+                            <strong>5. Engagement Opportunity:</strong> High performance + sustained engagement (89%+) =
+                            optimal window for challenging new concepts.
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Specific Calculus Topics Recommended */}
+                      <div className="mt-3 p-3 bg-white rounded border border-green-200">
+                        <div className="font-medium text-green-800 mb-2">Recommended Starting Topics:</div>
+                        <div className="grid grid-cols-2 gap-3 text-sm text-green-700">
+                          <div>
+                            <div className="font-medium">Week 1-2: Limits</div>
+                            <ul className="text-xs space-y-1">
+                              <li>• Intuitive limits using quadratic graphs</li>
+                              <li>• Limit notation and basic evaluation</li>
+                              <li>• Connection to continuous functions</li>
+                            </ul>
+                          </div>
+                          <div>
+                            <div className="font-medium">Week 3-4: Basic Derivatives</div>
+                            <ul className="text-xs space-y-1">
+                              <li>• Derivative as rate of change</li>
+                              <li>• Power rule (building on quadratics)</li>
+                              <li>• Simple optimization problems</li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
                     </div>
