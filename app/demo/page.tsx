@@ -10,7 +10,6 @@ import {
   Lightbulb,
   AlertCircle,
   BarChart3,
-  Eye,
   Activity,
   Network,
   Sparkles,
@@ -21,6 +20,8 @@ import {
   UserCheck,
   MessageCircle,
   Radar,
+  Video,
+  Play,
 } from "lucide-react"
 
 export default function DemoPage() {
@@ -39,7 +40,7 @@ export default function DemoPage() {
             </h1>
             <p className="text-gray-600 mb-8">
               {selectedDemo === "student"
-                ? "Experience personalized AI-powered learning with real-time adaptations"
+                ? "Experience personalized AI-powered learning with real-time adaptations and interactive media"
                 : "Manage your classroom with AI insights and intelligent interventions"}
             </p>
             <Button
@@ -110,9 +111,9 @@ export default function DemoPage() {
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                    <Eye className="w-4 h-4 text-purple-600" />
+                    <Video className="w-4 h-4 text-purple-600" />
                   </div>
-                  <span className="text-sm text-gray-700">Learning style analysis & optimization</span>
+                  <span className="text-sm text-gray-700">Interactive media with learning companion</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
@@ -185,7 +186,7 @@ export default function DemoPage() {
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">Revolutionary AI Features</h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Experience the five core pillars of next-generation adaptive learning
+            Experience the six core pillars of next-generation adaptive learning
           </p>
         </div>
 
@@ -227,9 +228,9 @@ export default function DemoPage() {
               bgColor: "bg-indigo-50",
             },
             {
-              icon: MessageCircle,
-              title: "AI Tutor Chatbot",
-              description: "Conversational AI assistant for personalized learning support",
+              icon: Play,
+              title: "Learning Companion",
+              description: "AI pauses media content to map concepts with real-world scenarios",
               color: "from-blue-500 to-indigo-500",
               bgColor: "bg-blue-50",
             },
@@ -324,16 +325,16 @@ function StudentDemoFeatures() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
-              <Activity className="w-5 h-5 text-purple-600" />
-              <span>Cognitive Monitoring</span>
+              <Play className="w-5 h-5 text-purple-600" />
+              <span>Learning Companion</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-2 text-sm text-gray-600">
-              <li>• Focus level tracking</li>
-              <li>• Engagement measurement</li>
-              <li>• Comprehension analysis</li>
-              <li>• Break recommendations</li>
+              <li>• Smart media pausing</li>
+              <li>• Real-world concept mapping</li>
+              <li>• Voice & text responses</li>
+              <li>• Interactive questioning</li>
             </ul>
           </CardContent>
         </Card>

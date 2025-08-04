@@ -7,6 +7,7 @@ import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { AIChatbot } from "@/components/ai-chatbot"
+import { MediaLearningInterface } from "@/components/media-learning-interface"
 import {
   Brain,
   Target,
@@ -37,6 +38,7 @@ import {
   MousePointer,
   HeadphonesIcon,
   MessageCircle,
+  Video,
 } from "lucide-react"
 
 export default function AdaptiveLearningPrototype() {
@@ -48,6 +50,7 @@ export default function AdaptiveLearningPrototype() {
   const [adaptationCount, setAdaptationCount] = useState(0)
   const [showChatbot, setShowChatbot] = useState(false)
   const [chatbotMinimized, setChatbotMinimized] = useState(false)
+  const [activeTab, setActiveTab] = useState<"adaptive" | "media">("adaptive")
 
   // Simulate real-time learning
   useEffect(() => {
@@ -156,6 +159,8 @@ export default function AdaptiveLearningPrototype() {
             setIsLearning={setIsLearning}
             learningProgress={learningProgress}
             adaptationCount={adaptationCount}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
           />
         ) : (
           <TeacherExperience />
@@ -188,15 +193,25 @@ function StudentExperience({
   setIsLearning,
   learningProgress,
   adaptationCount,
+  activeTab,
+  setActiveTab,
 }: {
   isLearning: boolean
   setIsLearning: (learning: boolean) => void
   learningProgress: number
   adaptationCount: number
+  activeTab: "adaptive" | "media"
+  setActiveTab: (tab: "adaptive" | "media") => void
 }) {
   const [selectedTopic, setSelectedTopic] = useState("quadratic-functions")
   const [learningStyle, setLearningStyle] = useState({ visual: 65, auditory: 25, kinesthetic: 10 })
   const [cognitiveState, setCognitiveState] = useState({ focus: 85, engagement: 92, comprehension: 78 })
+
+  const studentProfile = {
+    name: "Jordan",
+    learningStyle: learningStyle,
+    comprehensionLevel: cognitiveState.comprehension,
+  }
 
   return (
     <div className="space-y-8">
@@ -235,348 +250,398 @@ function StudentExperience({
         </div>
       </div>
 
-      {/* Real-time Learning Session */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Main Learning Area */}
-        <div className="lg:col-span-2 space-y-6">
-          {/* AI-Powered Content Adaptation */}
-          <Card>
-            <CardHeader>
+      {/* Learning Mode Tabs */}
+      <div className="flex items-center justify-center">
+        <div className="bg-white rounded-lg p-1 shadow-sm border">
+          <button
+            onClick={() => setActiveTab("adaptive")}
+            className={`px-6 py-3 rounded-md text-sm font-medium transition-colors flex items-center space-x-2 ${
+              activeTab === "adaptive" ? "bg-blue-600 text-white shadow-sm" : "text-gray-600 hover:text-gray-900"
+            }`}
+          >
+            <Brain className="w-4 h-4" />
+            <span>Adaptive Learning</span>
+          </button>
+          <button
+            onClick={() => setActiveTab("media")}
+            className={`px-6 py-3 rounded-md text-sm font-medium transition-colors flex items-center space-x-2 ${
+              activeTab === "media" ? "bg-purple-600 text-white shadow-sm" : "text-gray-600 hover:text-gray-900"
+            }`}
+          >
+            <Video className="w-4 h-4" />
+            <span>Interactive Media</span>
+          </button>
+        </div>
+      </div>
+
+      {activeTab === "adaptive" ? (
+        <AdaptiveLearningContent
+          isLearning={isLearning}
+          setIsLearning={setIsLearning}
+          learningProgress={learningProgress}
+          adaptationCount={adaptationCount}
+          learningStyle={learningStyle}
+          cognitiveState={cognitiveState}
+        />
+      ) : (
+        <MediaLearningInterface studentProfile={studentProfile} />
+      )}
+    </div>
+  )
+}
+
+function AdaptiveLearningContent({
+  isLearning,
+  setIsLearning,
+  learningProgress,
+  adaptationCount,
+  learningStyle,
+  cognitiveState,
+}: {
+  isLearning: boolean
+  setIsLearning: (learning: boolean) => void
+  learningProgress: number
+  adaptationCount: number
+  learningStyle: { visual: number; auditory: number; kinesthetic: number }
+  cognitiveState: { focus: number; engagement: number; comprehension: number }
+}) {
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      {/* Main Learning Area */}
+      <div className="lg:col-span-2 space-y-6">
+        {/* AI-Powered Content Adaptation */}
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="flex items-center space-x-2">
+                  <Brain className="w-5 h-5 text-purple-600" />
+                  <span>Adaptive Learning Session</span>
+                </CardTitle>
+                <CardDescription>AI is personalizing content based on your learning patterns</CardDescription>
+              </div>
+              <Button
+                onClick={() => setIsLearning(!isLearning)}
+                className={`${isLearning ? "bg-red-600 hover:bg-red-700" : "bg-green-600 hover:bg-green-700"}`}
+              >
+                {isLearning ? (
+                  <>
+                    <Pause className="w-4 h-4 mr-2" />
+                    Pause Learning
+                  </>
+                ) : (
+                  <>
+                    <Play className="w-4 h-4 mr-2" />
+                    Start Learning
+                  </>
+                )}
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent>
+            {/* Learning Content Simulation */}
+            <div className="space-y-6">
+              <div className="p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Quadratic Functions: Vertex Form</h3>
+
+                {/* Visual Learning Component (Adapted based on learning style) */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <div className="bg-white p-4 rounded-lg shadow-sm">
+                      <h4 className="font-medium text-gray-800 mb-2">Interactive Graph</h4>
+                      <div className="w-full h-32 bg-gradient-to-br from-blue-100 to-purple-100 rounded flex items-center justify-center">
+                        <div className="text-center">
+                          <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                            <BarChart3 className="w-8 h-8 text-white" />
+                          </div>
+                          <p className="text-sm text-gray-600">y = a(x - h)² + k</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* AI Adaptation Notice */}
+                    {isLearning && (
+                      <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
+                        <div className="flex items-center space-x-2 mb-1">
+                          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                          <span className="text-sm font-medium text-green-800">AI Adaptation Active</span>
+                        </div>
+                        <p className="text-xs text-green-700">
+                          Increasing visual elements by 20% based on your learning preference
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="bg-white p-4 rounded-lg shadow-sm">
+                      <h4 className="font-medium text-gray-800 mb-2">Step-by-Step Solution</h4>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex items-center space-x-2">
+                          <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center text-xs font-bold text-blue-600">
+                            1
+                          </div>
+                          <span>Identify the vertex (h, k)</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center text-xs font-bold text-blue-600">
+                            2
+                          </div>
+                          <span>Determine the direction of opening</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center text-xs font-bold text-blue-600">
+                            3
+                          </div>
+                          <span>Plot additional points</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Learning Progress */}
+                    {isLearning && (
+                      <div className="bg-white p-4 rounded-lg shadow-sm">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-sm font-medium text-gray-700">Understanding Progress</span>
+                          <span className="text-sm text-gray-500">{learningProgress}%</span>
+                        </div>
+                        <Progress value={learningProgress} className="h-2" />
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Interactive Practice */}
+              <div className="p-4 bg-white rounded-lg border">
+                <h4 className="font-medium text-gray-800 mb-3">Practice Problem</h4>
+                <div className="space-y-3">
+                  <p className="text-gray-700">Find the vertex of: y = 2(x - 3)² + 1</p>
+                  <div className="flex space-x-2">
+                    <Button size="sm" variant="outline">
+                      Vertex: (3, 1)
+                    </Button>
+                    <Button size="sm" variant="outline">
+                      Vertex: (-3, 1)
+                    </Button>
+                    <Button size="sm" variant="outline">
+                      Vertex: (3, -1)
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* AI Insights and Recommendations */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2">
+              <Lightbulb className="w-5 h-5 text-yellow-600" />
+              <span>AI Learning Insights</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="p-4 bg-blue-50 rounded-lg">
+                <div className="flex items-center space-x-2 mb-2">
+                  <Eye className="w-4 h-4 text-blue-600" />
+                  <span className="font-medium text-blue-900">Visual Learner Detected</span>
+                </div>
+                <p className="text-sm text-blue-800">You respond 40% better to visual content. More diagrams added.</p>
+              </div>
+              <div className="p-4 bg-green-50 rounded-lg">
+                <div className="flex items-center space-x-2 mb-2">
+                  <TrendingUp className="w-4 h-4 text-green-600" />
+                  <span className="font-medium text-green-900">Peak Performance Time</span>
+                </div>
+                <p className="text-sm text-green-800">
+                  Your focus is highest at 2:30 PM. Schedule complex topics then.
+                </p>
+              </div>
+              <div className="p-4 bg-purple-50 rounded-lg">
+                <div className="flex items-center space-x-2 mb-2">
+                  <Brain className="w-4 h-4 text-purple-600" />
+                  <span className="font-medium text-purple-900">Cognitive Load Optimal</span>
+                </div>
+                <p className="text-sm text-purple-800">Current difficulty level is perfect for your learning pace.</p>
+              </div>
+              <div className="p-4 bg-orange-50 rounded-lg">
+                <div className="flex items-center space-x-2 mb-2">
+                  <Target className="w-4 h-4 text-orange-600" />
+                  <span className="font-medium text-orange-900">Next Challenge Ready</span>
+                </div>
+                <p className="text-sm text-orange-800">Ready for calculus concepts based on your progress pattern.</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Right Sidebar - Real-time Analytics */}
+      <div className="space-y-6">
+        {/* Learning Style Analysis */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2">
+              <Network className="w-5 h-5 text-cyan-600" />
+              <span>Learning Profile</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center space-x-2">
+                    <Eye className="w-4 h-4 text-blue-500" />
+                    <span className="text-sm">Visual</span>
+                  </div>
+                  <span className="text-sm font-bold">{learningStyle.visual}%</span>
+                </div>
+                <Progress value={learningStyle.visual} className="h-2" />
+              </div>
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center space-x-2">
+                    <HeadphonesIcon className="w-4 h-4 text-green-500" />
+                    <span className="text-sm">Auditory</span>
+                  </div>
+                  <span className="text-sm font-bold">{learningStyle.auditory}%</span>
+                </div>
+                <Progress value={learningStyle.auditory} className="h-2" />
+              </div>
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center space-x-2">
+                    <MousePointer className="w-4 h-4 text-purple-500" />
+                    <span className="text-sm">Kinesthetic</span>
+                  </div>
+                  <span className="text-sm font-bold">{learningStyle.kinesthetic}%</span>
+                </div>
+                <Progress value={learningStyle.kinesthetic} className="h-2" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Real-time Cognitive State */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2">
+              <Activity className="w-5 h-5 text-red-600" />
+              <span>Cognitive State</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <div>
-                  <CardTitle className="flex items-center space-x-2">
-                    <Brain className="w-5 h-5 text-purple-600" />
-                    <span>Adaptive Learning Session</span>
-                  </CardTitle>
-                  <CardDescription>AI is personalizing content based on your learning patterns</CardDescription>
-                </div>
-                <Button
-                  onClick={() => setIsLearning(!isLearning)}
-                  className={`${isLearning ? "bg-red-600 hover:bg-red-700" : "bg-green-600 hover:bg-green-700"}`}
-                >
-                  {isLearning ? (
-                    <>
-                      <Pause className="w-4 h-4 mr-2" />
-                      Pause Learning
-                    </>
-                  ) : (
-                    <>
-                      <Play className="w-4 h-4 mr-2" />
-                      Start Learning
-                    </>
-                  )}
-                </Button>
-              </div>
-            </CardHeader>
-            <CardContent>
-              {/* Learning Content Simulation */}
-              <div className="space-y-6">
-                <div className="p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Quadratic Functions: Vertex Form</h3>
-
-                  {/* Visual Learning Component (Adapted based on learning style) */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-4">
-                      <div className="bg-white p-4 rounded-lg shadow-sm">
-                        <h4 className="font-medium text-gray-800 mb-2">Interactive Graph</h4>
-                        <div className="w-full h-32 bg-gradient-to-br from-blue-100 to-purple-100 rounded flex items-center justify-center">
-                          <div className="text-center">
-                            <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-2">
-                              <BarChart3 className="w-8 h-8 text-white" />
-                            </div>
-                            <p className="text-sm text-gray-600">y = a(x - h)² + k</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* AI Adaptation Notice */}
-                      {isLearning && (
-                        <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
-                          <div className="flex items-center space-x-2 mb-1">
-                            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                            <span className="text-sm font-medium text-green-800">AI Adaptation Active</span>
-                          </div>
-                          <p className="text-xs text-green-700">
-                            Increasing visual elements by 20% based on your learning preference
-                          </p>
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="space-y-4">
-                      <div className="bg-white p-4 rounded-lg shadow-sm">
-                        <h4 className="font-medium text-gray-800 mb-2">Step-by-Step Solution</h4>
-                        <div className="space-y-2 text-sm">
-                          <div className="flex items-center space-x-2">
-                            <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center text-xs font-bold text-blue-600">
-                              1
-                            </div>
-                            <span>Identify the vertex (h, k)</span>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center text-xs font-bold text-blue-600">
-                              2
-                            </div>
-                            <span>Determine the direction of opening</span>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center text-xs font-bold text-blue-600">
-                              3
-                            </div>
-                            <span>Plot additional points</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Learning Progress */}
-                      {isLearning && (
-                        <div className="bg-white p-4 rounded-lg shadow-sm">
-                          <div className="flex items-center justify-between mb-2">
-                            <span className="text-sm font-medium text-gray-700">Understanding Progress</span>
-                            <span className="text-sm text-gray-500">{learningProgress}%</span>
-                          </div>
-                          <Progress value={learningProgress} className="h-2" />
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Interactive Practice */}
-                <div className="p-4 bg-white rounded-lg border">
-                  <h4 className="font-medium text-gray-800 mb-3">Practice Problem</h4>
-                  <div className="space-y-3">
-                    <p className="text-gray-700">Find the vertex of: y = 2(x - 3)² + 1</p>
-                    <div className="flex space-x-2">
-                      <Button size="sm" variant="outline">
-                        Vertex: (3, 1)
-                      </Button>
-                      <Button size="sm" variant="outline">
-                        Vertex: (-3, 1)
-                      </Button>
-                      <Button size="sm" variant="outline">
-                        Vertex: (3, -1)
-                      </Button>
-                    </div>
-                  </div>
+                <span className="text-sm text-gray-600">Focus Level</span>
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  <span className="text-sm font-bold text-green-600">{cognitiveState.focus}%</span>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              <Progress value={cognitiveState.focus} className="h-2" />
 
-          {/* AI Insights and Recommendations */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Lightbulb className="w-5 h-5 text-yellow-600" />
-                <span>AI Learning Insights</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-4 bg-blue-50 rounded-lg">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Eye className="w-4 h-4 text-blue-600" />
-                    <span className="font-medium text-blue-900">Visual Learner Detected</span>
-                  </div>
-                  <p className="text-sm text-blue-800">
-                    You respond 40% better to visual content. More diagrams added.
-                  </p>
-                </div>
-                <div className="p-4 bg-green-50 rounded-lg">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <TrendingUp className="w-4 h-4 text-green-600" />
-                    <span className="font-medium text-green-900">Peak Performance Time</span>
-                  </div>
-                  <p className="text-sm text-green-800">
-                    Your focus is highest at 2:30 PM. Schedule complex topics then.
-                  </p>
-                </div>
-                <div className="p-4 bg-purple-50 rounded-lg">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Brain className="w-4 h-4 text-purple-600" />
-                    <span className="font-medium text-purple-900">Cognitive Load Optimal</span>
-                  </div>
-                  <p className="text-sm text-purple-800">Current difficulty level is perfect for your learning pace.</p>
-                </div>
-                <div className="p-4 bg-orange-50 rounded-lg">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Target className="w-4 h-4 text-orange-600" />
-                    <span className="font-medium text-orange-900">Next Challenge Ready</span>
-                  </div>
-                  <p className="text-sm text-orange-800">Ready for calculus concepts based on your progress pattern.</p>
-                </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-600">Engagement</span>
+                <span className="text-sm font-bold text-blue-600">{cognitiveState.engagement}%</span>
               </div>
-            </CardContent>
-          </Card>
-        </div>
+              <Progress value={cognitiveState.engagement} className="h-2" />
 
-        {/* Right Sidebar - Real-time Analytics */}
-        <div className="space-y-6">
-          {/* Learning Style Analysis */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Network className="w-5 h-5 text-cyan-600" />
-                <span>Learning Profile</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center space-x-2">
-                      <Eye className="w-4 h-4 text-blue-500" />
-                      <span className="text-sm">Visual</span>
-                    </div>
-                    <span className="text-sm font-bold">{learningStyle.visual}%</span>
-                  </div>
-                  <Progress value={learningStyle.visual} className="h-2" />
-                </div>
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center space-x-2">
-                      <HeadphonesIcon className="w-4 h-4 text-green-500" />
-                      <span className="text-sm">Auditory</span>
-                    </div>
-                    <span className="text-sm font-bold">{learningStyle.auditory}%</span>
-                  </div>
-                  <Progress value={learningStyle.auditory} className="h-2" />
-                </div>
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center space-x-2">
-                      <MousePointer className="w-4 h-4 text-purple-500" />
-                      <span className="text-sm">Kinesthetic</span>
-                    </div>
-                    <span className="text-sm font-bold">{learningStyle.kinesthetic}%</span>
-                  </div>
-                  <Progress value={learningStyle.kinesthetic} className="h-2" />
-                </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-600">Comprehension</span>
+                <span className="text-sm font-bold text-purple-600">{cognitiveState.comprehension}%</span>
               </div>
-            </CardContent>
-          </Card>
+              <Progress value={cognitiveState.comprehension} className="h-2" />
+            </div>
+          </CardContent>
+        </Card>
 
-          {/* Real-time Cognitive State */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Activity className="w-5 h-5 text-red-600" />
-                <span>Cognitive State</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600">Focus Level</span>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                    <span className="text-sm font-bold text-green-600">{cognitiveState.focus}%</span>
-                  </div>
-                </div>
-                <Progress value={cognitiveState.focus} className="h-2" />
-
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600">Engagement</span>
-                  <span className="text-sm font-bold text-blue-600">{cognitiveState.engagement}%</span>
-                </div>
-                <Progress value={cognitiveState.engagement} className="h-2" />
-
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-600">Comprehension</span>
-                  <span className="text-sm font-bold text-purple-600">{cognitiveState.comprehension}%</span>
-                </div>
-                <Progress value={cognitiveState.comprehension} className="h-2" />
+        {/* AI Recommendations */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2">
+              <Sparkles className="w-5 h-5 text-yellow-600" />
+              <span>Smart Suggestions</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="p-3 bg-blue-50 rounded-lg">
+              <div className="flex items-center space-x-2 mb-1">
+                <Timer className="w-4 h-4 text-blue-600" />
+                <span className="text-sm font-medium text-blue-900">Take a Break</span>
               </div>
-            </CardContent>
-          </Card>
+              <p className="text-xs text-blue-800">
+                You've been focused for 45 minutes. A 5-minute break will help retention.
+              </p>
+            </div>
+            <div className="p-3 bg-green-50 rounded-lg">
+              <div className="flex items-center space-x-2 mb-1">
+                <Users className="w-4 h-4 text-green-600" />
+                <span className="text-sm font-medium text-green-900">Study Group</span>
+              </div>
+              <p className="text-xs text-green-800">
+                Join the Calculus study group at 3 PM for collaborative learning.
+              </p>
+            </div>
+            <div className="p-3 bg-purple-50 rounded-lg">
+              <div className="flex items-center space-x-2 mb-1">
+                <BookOpen className="w-4 h-4 text-purple-600" />
+                <span className="text-sm font-medium text-purple-900">Next Topic</span>
+              </div>
+              <p className="text-xs text-purple-800">Ready for "Completing the Square" based on your mastery level.</p>
+            </div>
+            <div className="p-3 bg-orange-50 rounded-lg">
+              <div className="flex items-center space-x-2 mb-1">
+                <Video className="w-4 h-4 text-orange-600" />
+                <span className="text-sm font-medium text-orange-900">Try Interactive Media</span>
+              </div>
+              <p className="text-xs text-orange-800">
+                Switch to video learning with your AI companion for deeper concept understanding.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
 
-          {/* AI Recommendations */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Sparkles className="w-5 h-5 text-yellow-600" />
-                <span>Smart Suggestions</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="p-3 bg-blue-50 rounded-lg">
-                <div className="flex items-center space-x-2 mb-1">
-                  <Timer className="w-4 h-4 text-blue-600" />
-                  <span className="text-sm font-medium text-blue-900">Take a Break</span>
+        {/* Achievement Progress */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2">
+              <Award className="w-5 h-5 text-yellow-600" />
+              <span>Today's Progress</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="w-4 h-4 text-green-500" />
+                  <span className="text-sm">Problems Solved</span>
                 </div>
-                <p className="text-xs text-blue-800">
-                  You've been focused for 45 minutes. A 5-minute break will help retention.
-                </p>
+                <span className="text-sm font-bold">12/15</span>
               </div>
-              <div className="p-3 bg-green-50 rounded-lg">
-                <div className="flex items-center space-x-2 mb-1">
-                  <Users className="w-4 h-4 text-green-600" />
-                  <span className="text-sm font-medium text-green-900">Study Group</span>
-                </div>
-                <p className="text-xs text-green-800">
-                  Join the Calculus study group at 3 PM for collaborative learning.
-                </p>
-              </div>
-              <div className="p-3 bg-purple-50 rounded-lg">
-                <div className="flex items-center space-x-2 mb-1">
-                  <BookOpen className="w-4 h-4 text-purple-600" />
-                  <span className="text-sm font-medium text-purple-900">Next Topic</span>
-                </div>
-                <p className="text-xs text-purple-800">
-                  Ready for "Completing the Square" based on your mastery level.
-                </p>
-              </div>
-              <div className="p-3 bg-orange-50 rounded-lg">
-                <div className="flex items-center space-x-2 mb-1">
-                  <MessageCircle className="w-4 h-4 text-orange-600" />
-                  <span className="text-sm font-medium text-orange-900">Ask AI Tutor</span>
-                </div>
-                <p className="text-xs text-orange-800">
-                  Your AI tutor can provide personalized explanations and practice problems.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+              <Progress value={80} className="h-2" />
 
-          {/* Achievement Progress */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Award className="w-5 h-5 text-yellow-600" />
-                <span>Today's Progress</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span className="text-sm">Problems Solved</span>
-                  </div>
-                  <span className="text-sm font-bold">12/15</span>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <Flame className="w-4 h-4 text-orange-500" />
+                  <span className="text-sm">Learning Streak</span>
                 </div>
-                <Progress value={80} className="h-2" />
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <Flame className="w-4 h-4 text-orange-500" />
-                    <span className="text-sm">Learning Streak</span>
-                  </div>
-                  <span className="text-sm font-bold">7 days</span>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <Brain className="w-4 h-4 text-purple-500" />
-                    <span className="text-sm">AI Adaptations</span>
-                  </div>
-                  <span className="text-sm font-bold">{adaptationCount}</span>
-                </div>
+                <span className="text-sm font-bold">7 days</span>
               </div>
-            </CardContent>
-          </Card>
-        </div>
+
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <Brain className="w-4 h-4 text-purple-500" />
+                  <span className="text-sm">AI Adaptations</span>
+                </div>
+                <span className="text-sm font-bold">{adaptationCount}</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   )
